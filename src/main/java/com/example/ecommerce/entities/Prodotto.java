@@ -35,7 +35,7 @@ public class Prodotto {
     @Setter
     @Getter
     @Basic
-    @Column(name="nome", nullable = false, length = 50)
+    @Column(name="nome", nullable = false)
     private String nome;
 
     @Setter

@@ -50,6 +50,14 @@ public class ProdottoCarrelloService {
     public List<ProdottoCarrello> prodottiCarrello(String username){
         return carrelloRepository.findAllByUtente_Username(username);
     }
+
+    @Transactional(readOnly = false)
+    public void rimuoviCarrello(){
+        String username= JwtUtil.getEmail();
+        Utente utente = utenteRepository.findByUsername(username);
+        System.out.println(utente);
+        carrelloRepository.deleteAllByUtente(utente);
+    }
     @Transactional(readOnly = false)
     public void rimuoviCarrello(long id){
         carrelloRepository.deleteCarrellosById(id);

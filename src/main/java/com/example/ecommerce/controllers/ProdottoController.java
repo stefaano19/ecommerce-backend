@@ -70,6 +70,13 @@ public class ProdottoController {
         carrelloService.rimuoviCarrello(id);
     }
 
+    @GetMapping("/rimuoviProdottiCarrello")
+    @CrossOrigin(origins = "http://localhost:4200/**")
+    @PreAuthorize("hasAuthority('cliente')")
+    public void rimuoviProdottiCarrello(){
+        System.out.println("ciao");
+        carrelloService.rimuoviCarrello();
+    }
 
     @GetMapping("/pagine")
     public ResponseEntity mostraTutti(@RequestParam(value = "numeroPagine", defaultValue = "0")int numeroPagine, @RequestParam(value = "dimensionePagina", defaultValue = "10") int dimensionePagina, @RequestParam(value = "sortBy", defaultValue = "id") String sortBy ){
