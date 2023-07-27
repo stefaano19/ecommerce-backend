@@ -53,7 +53,6 @@ public class OrdineService {
         for(ProdottoOrdinato prodottoOrdinato : ordineS.getProdottiOrdinati()){
             prodottoOrdinato.setOrdine(ordineS);
             ProdottoOrdinato aggiunto=prodottoOrdinatoRepository.save(prodottoOrdinato);
-            entityManager.refresh(aggiunto);
             Prodotto prodotto= prodottoRepository.findById(prodottoOrdinato.getProdotto().getId()).get();
             if(prodotto.getPrezzo()>prodottoOrdinato.getPrezzo()){
                 throw new VariazionePrezzoException();
@@ -63,13 +62,12 @@ public class OrdineService {
                 throw new QuantitàNonDisponibileException();
             }
             prodotto.setQuantita(nuovaQuantità);
-            entityManager.refresh(prodottoOrdinato);
         }
-        entityManager.refresh(ordineS);
         prodottoCarrelloRepository.deleteAllByUtente(utente);
         return ordineS;
     }
 /*
+
     @Transactional(readOnly = true)
     public List<Ordine> mostraOrdiniUtente(String username) throws UtenteNonTrovatoException {
         return ordineRepository.findAllByUsername(username);
